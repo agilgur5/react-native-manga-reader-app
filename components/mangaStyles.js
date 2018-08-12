@@ -4,7 +4,6 @@ const styles = {
     backgroundColor: '#1a1a1a'
   },
   manga: {
-    boxSizing: 'border-box',
     position: 'relative',
     margin: 3,
     flex: 1,
@@ -31,7 +30,6 @@ const styles = {
     bottom: 20,
     left: 4,
     right: 4,
-    display: 'block',
     color: '#fff',
     fontSize: 14,
     lineHeight: 16,
@@ -42,7 +40,6 @@ const styles = {
     position: 'absolute',
     bottom: 4,
     left: 4,
-    display: 'block',
     color: '#fff',
     fontSize: 10,
     lineHeight: 16,
