@@ -1,14 +1,11 @@
 import React from 'react'
 import { getLatest } from './utils/api.js'
 
-import { Dimensions, StatusBar, View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 
 import MangaList from './components/manga.js'
 import Pages from './components/pages.js'
 import Chapters from './components/chapters.js'
-
-const dimensions = Dimensions.get('window')
-const columns = dimensions.width < 512 ? 3 : 4
 
 const styles = {
   base: {

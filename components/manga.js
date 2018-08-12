@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, View, Text, Image,
+import { Dimensions, FlatList, View, Text, Image,
   TouchableWithoutFeedback } from 'react-native'
 
 import styles from './mangaStyles.js'
@@ -13,11 +13,12 @@ export default class MangaList extends React.PureComponent {
 
   render () {
     const { refreshing, mangas, onRefresh, onEndReached } = this.props
+    const columns = Dimensions.get('window').width < 512 ? 3 : 4
 
     return (
       <FlatList
         style={styles.mangas}
-        numColumns={3}
+        numColumns={columns}
         data={mangas}
         keyExtractor={this.getKey}
         refreshing={refreshing}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Text, Image } from 'react-native'
+import { Dimensions, ScrollView, View, Text, Image } from 'react-native'
 
 import { getPages, getImage } from '../utils/api.js'
 
@@ -66,19 +66,20 @@ class Page extends React.PureComponent {
   render () {
     const { direction } = this.props
     const { image, width, height } = this.state
+
+    const dimensions = Dimensions.get('window')
     const size = direction === 'horizontal'
       ? { height: dimensions.height }
       : { width: dimensions.width }
-    return image && (
-      <Image
-        style={{
-          ...styles.pageImage,
-          ...size,
-          aspectRatio: width / height
-        }}
-        resizeMode='cover'
-        source={{uri: image}}
-      />
-    )
+
+    return image && <Image
+      style={{
+        ...styles.pageImage,
+        ...size,
+        aspectRatio: width / height
+      }}
+      resizeMode='cover'
+      source={{uri: image}}
+    />
   }
 }

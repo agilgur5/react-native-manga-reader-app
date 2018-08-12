@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, ScrollView, View, Text, Image,
+import { Dimensions, FlatList, ScrollView, View, Text, Image,
   TouchableWithoutFeedback } from 'react-native'
 
 import { getChapters } from '../utils/api.js'
@@ -20,15 +20,24 @@ export default class Chapters extends React.PureComponent {
 
   render () {
     const { manga, chapters, tags, summary, onClose } = this.props
+    const columns = Dimensions.get('window').width < 512 ? 3 : 4
+
     return (
       <View style={styles.chapters}>
         <View style={styles.header}>
           <TouchableWithoutFeedback onPress={onClose}>
-            <View style={styles.imageContainer}>
+            <View style={{
+              ...styles.imageContainer,
+              width: `${100 / columns}%`
+            }}>
               <Image style={styles.image} source={{uri: manga.cover}} />
             </View>
           </TouchableWithoutFeedback>
-          <ScrollView contentContainerStyle={styles.descriptionTextContainer} style={styles.description}>
+          <ScrollView contentContainerStyle={styles.descriptionTextContainer}
+            style={{
+              ...styles.description,
+              width: `${100 - 100 / columns}%`
+            }}>
             <Text
               style={{
                 display: 'block',

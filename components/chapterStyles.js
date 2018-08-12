@@ -13,7 +13,6 @@ const styles = {
   },
   description: {
     position: 'absolute',
-    width: `${100 - 100 / columns}%`,
     top: 0,
     bottom: 0,
     right: 0
@@ -29,7 +28,6 @@ const styles = {
   },
   imageContainer: {
     position: 'relative',
-    width: `${100 / columns}%`,
     padding: 3,
     aspectRatio: 0.642857143
   },
