@@ -7,12 +7,20 @@ const styles = {
     right: 0,
     backgroundColor: '#000'
   },
-  pagesClose: {
+  close: {
     position: 'absolute',
     top: 0,
     left: 0,
     fontSize: 32,
-    color: 'rgba(0, 0, 0, 0)',
+    color: 'red',
+    backgroundColor: 'transparent'
+  },
+  direction: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    fontSize: 32,
+    color: 'red',
     backgroundColor: 'transparent'
   },
   pagesList: {
@@ -20,7 +28,9 @@ const styles = {
     width: '100%',
     height: '100%'
   },
-  pageImage: {}
+  image: {
+
+  }
 }
 
 export default styles

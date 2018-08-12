@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, ScrollView, View, Text, Image } from 'react-native'
+import { Dimensions, FlatList, View, Text, Image } from 'react-native'
 
 import { getPages, getImage } from '../utils/api.js'
 
@@ -14,33 +14,25 @@ export default class Pages extends React.PureComponent {
   renderPage = ({ item }) => (
     <Page direction={this.props.direction} page={item} />
   )
+  keyExtractor (item) { return item }
 
   render () {
     const { pages, direction, onClose, onToggle } = this.props
     return (
       <View style={styles.pages}>
-        {pages.length && <ScrollView
+        {pages.length && <FlatList
           style={styles.pagesList}
           data={pages}
           horizontal={direction === 'horizontal'}
           inverted={direction === 'horizontal'}
           directionalLockEnabled
           renderItem={this.renderPage}
+          keyExtractor={this.keyExtractor}
         />}
-        <Text style={styles.pagesClose} onPress={onClose}>
+        <Text style={styles.close} onPress={onClose}>
           CLOSE
         </Text>
-        <Text
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            fontSize: 32,
-            color: 'rgba(0, 0, 0, 0)',
-            backgroundColor: 'transparent'
-          }}
-          onPress={onToggle}
-        >
+        <Text style={styles.direction} onPress={onToggle}>
           DIRECTION
         </Text>
       </View>
@@ -74,7 +66,7 @@ class Page extends React.PureComponent {
 
     return image && <Image
       style={{
-        ...styles.pageImage,
+        ...styles.image,
         ...size,
         aspectRatio: width / height
       }}
