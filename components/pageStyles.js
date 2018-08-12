@@ -1,5 +1,5 @@
 const styles = {
-  pages: {
+  pagesContainer: {
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -7,9 +7,17 @@ const styles = {
     right: 0,
     backgroundColor: '#000'
   },
+  navBar: {
+    backgroundColor: 'blue',
+    width: '100%',
+    height: 34
+  },
+  pagesList: {
+    flex: 1,
+    width: '100%'
+  },
   close: {
     position: 'absolute',
-    top: 0,
     left: 0,
     fontSize: 32,
     color: 'red',
@@ -17,19 +25,10 @@ const styles = {
   },
   direction: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
+    right: 0,
     fontSize: 32,
     color: 'red',
     backgroundColor: 'transparent'
-  },
-  pagesList: {
-    flex: 1,
-    width: '100%',
-    height: '100%'
-  },
-  image: {
-
   }
 }
 

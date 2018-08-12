@@ -18,25 +18,26 @@ export default class Pages extends React.PureComponent {
 
   render () {
     const { pages, direction, onClose, onToggle } = this.props
-    return (
-      <View style={styles.pages}>
-        {pages.length && <FlatList
-          style={styles.pagesList}
-          data={pages}
-          horizontal={direction === 'horizontal'}
-          inverted={direction === 'horizontal'}
-          directionalLockEnabled
-          renderItem={this.renderPage}
-          keyExtractor={this.keyExtractor}
-        />}
+
+    return <View style={styles.pagesContainer}>
+      <View style={styles.navBar}>
         <Text style={styles.close} onPress={onClose}>
-          CLOSE
+          Back
         </Text>
         <Text style={styles.direction} onPress={onToggle}>
-          DIRECTION
+          Direction: {direction === 'horizontal' ? 'Left' : 'Down'}
         </Text>
       </View>
-    )
+      {pages.length && <FlatList
+        style={styles.pagesList}
+        data={pages}
+        horizontal={direction === 'horizontal'}
+        inverted={direction === 'horizontal'}
+        directionalLockEnabled
+        renderItem={this.renderPage}
+        keyExtractor={this.keyExtractor}
+      />}
+    </View>
   }
 }
 
@@ -61,14 +62,13 @@ class Page extends React.PureComponent {
 
     const dimensions = Dimensions.get('window')
     const size = direction === 'horizontal'
-      ? { height: dimensions.height }
+      ? { height: dimensions.height - styles.navBar.height }
       : { width: dimensions.width }
 
     return image && <Image
       style={{
-        ...styles.image,
         ...size,
-        aspectRatio: width / height
+        aspectRatio: width / (height - styles.navBar.height)
       }}
       resizeMode='cover'
       source={{uri: image}}
