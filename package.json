@@ -6,12 +6,16 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "devtools": "react-devtools"
   },
   "dependencies": {
     "cheerio-without-node-native": "^0.20.2",
     "expo": "^29.0.0",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz"
+  },
+  "devDependencies": {
+    "react-devtools": "^3.2.3"
   }
 }
