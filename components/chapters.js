@@ -40,7 +40,6 @@ export default class Chapters extends React.PureComponent {
             }}>
             <Text
               style={{
-                display: 'block',
                 color: '#fff',
                 fontSize: 14,
                 lineHeight: 16,
@@ -55,7 +54,6 @@ export default class Chapters extends React.PureComponent {
               <Text
                 style={{
                   ...styles.descriptionText,
-                  display: 'block',
                   paddingBottom: 8,
                   fontSize: 10,
                   lineHeight: 16,
