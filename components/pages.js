@@ -1,11 +1,15 @@
 import React from 'react'
-import { Dimensions, FlatList, View, Text, Image } from 'react-native'
+import { Dimensions, FlatList, View, Text, Image,
+  TouchableWithoutFeedback } from 'react-native'
 
 import { getPages, getImage } from '../utils/api.js'
 
 import styles from './pageStyles.js'
 
 export default class Pages extends React.PureComponent {
+  state = {
+    showNav: false
+  }
   componentWillMount () {
     const { chapter, onLoad } = this.props
     getPages(chapter.link).then(onLoad)
@@ -16,11 +20,20 @@ export default class Pages extends React.PureComponent {
   )
   keyExtractor (item) { return item }
 
+  toggleNav = () => {
+    console.log('toggling nav...')
+    this.setState(({showNav}) => ({showNav: !showNav}))
+  }
+
   render () {
     const { pages, direction, onClose, onToggle } = this.props
+    const { showNav } = this.state
 
     return <View style={styles.pagesContainer}>
-      <View style={styles.navBar}>
+      <View style={{
+        ...styles.navBar,
+        opacity: showNav ? 80 : 0
+      }}>
         <Text style={styles.close} onPress={onClose}>
           Back
         </Text>
@@ -28,15 +41,19 @@ export default class Pages extends React.PureComponent {
           Direction: {direction === 'horizontal' ? 'Left' : 'Down'}
         </Text>
       </View>
-      {pages.length && <FlatList
-        style={styles.pagesList}
-        data={pages}
-        horizontal={direction === 'horizontal'}
-        inverted={direction === 'horizontal'}
-        directionalLockEnabled
-        renderItem={this.renderPage}
-        keyExtractor={this.keyExtractor}
-      />}
+      <TouchableWithoutFeedback onLongPress={this.toggleNav}>
+        <View style={styles.pagesList}>
+          {pages.length && <FlatList
+            style={styles.pagesList}
+            data={pages}
+            renderItem={this.renderPage}
+            keyExtractor={this.keyExtractor}
+            horizontal={direction === 'horizontal'}
+            inverted={direction === 'horizontal'}
+            directionalLockEnabled
+          />}
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   }
 }
@@ -62,16 +79,18 @@ class Page extends React.PureComponent {
 
     const dimensions = Dimensions.get('window')
     const size = direction === 'horizontal'
-      ? { height: dimensions.height - styles.navBar.height }
+      ? { height: dimensions.height }
       : { width: dimensions.width }
 
-    return image && <Image
-      style={{
-        ...size,
-        aspectRatio: width / (height - styles.navBar.height)
-      }}
-      resizeMode='cover'
-      source={{uri: image}}
-    />
+    return <View style={styles.pagesList} onMoveShouldSetResponder={() => true}>
+      {image && <Image
+        style={{
+          ...size,
+          aspectRatio: width / height
+        }}
+        resizeMode='cover'
+        source={{uri: image}}
+      />}
+    </View>
   }
 }

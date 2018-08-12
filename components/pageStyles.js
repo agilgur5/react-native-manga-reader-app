@@ -8,13 +8,14 @@ const styles = {
     backgroundColor: '#000'
   },
   navBar: {
-    backgroundColor: 'blue',
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: 'white',
     width: '100%',
     height: 34
   },
   pagesList: {
-    flex: 1,
-    width: '100%'
+    flex: 1
   },
   close: {
     position: 'absolute',
