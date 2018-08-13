@@ -8,7 +8,8 @@ import styles from './pageStyles.js'
 
 export default class PageList extends React.PureComponent {
   state = {
-    showNav: false
+    showNav: false,
+    currentPage: 0
   }
   componentWillMount () {
     const { chapter, onLoad } = this.props
@@ -20,6 +21,18 @@ export default class PageList extends React.PureComponent {
   }
   keyExtractor (item) { return item }
 
+  // keep track of current page
+  onScrollEnd = (ev) => {
+    const { contentOffset, layoutMeasurement } = ev.nativeEvent
+    const { x, y } = contentOffset
+    const { width, height } = layoutMeasurement
+
+    const isHorizontal = this.props.isHorizontal
+    // divide offset by size to get current pageNum
+    const pageNum = Math.floor(isHorizontal ? x / width : y / height)
+    this.setState({currentPage: pageNum})
+  }
+
   toggleNav = () => {
     this.setState(({showNav}) => ({showNav: !showNav}))
   }
@@ -27,7 +40,7 @@ export default class PageList extends React.PureComponent {
   render () {
     const { chapter, pages, isHorizontal, toggleHorizontal,
       onClose } = this.props
-    const { showNav } = this.state
+    const { showNav, currentPage } = this.state
 
     return <View style={styles.pagesContainer}>
       <View style={{
@@ -38,7 +51,7 @@ export default class PageList extends React.PureComponent {
           {'<'} Back
         </Text>
         <Text style={styles.chapter}>
-          Ch. {chapter.title}
+          Ch. {chapter.title} ({currentPage}/{pages.length})
         </Text>
         <Text style={styles.direction} onPress={toggleHorizontal}>
           Swipe {isHorizontal ? 'Left <' : 'Down V'}
@@ -56,6 +69,7 @@ export default class PageList extends React.PureComponent {
         horizontal={isHorizontal}
         inverted={isHorizontal}
         directionalLockEnabled
+        onMomentumScrollEnd={this.onScrollEnd}
       />
     </View>
   }
