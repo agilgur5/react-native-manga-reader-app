@@ -26,7 +26,7 @@ class App extends React.PureComponent {
     tags: [],
     summary: null,
     pages: [],
-    direction: 'horizontal'
+    isHorizontal: true
   }
 
   componentWillMount () {
@@ -34,7 +34,9 @@ class App extends React.PureComponent {
   }
 
   render () {
-    const { refreshing, manga, chapter, mangas, chapters, tags, summary, pages, direction } = this.state
+    const { refreshing, manga, chapter, mangas, chapters, tags, summary, pages,
+      isHorizontal } = this.state
+
     return <View style={styles.base}>
       <StatusBar hidden />
       <MangaList refreshing={refreshing} mangas={mangas}
@@ -47,9 +49,9 @@ class App extends React.PureComponent {
         onLoad={this.handleLoadedChapters} />
       }
 
-      {chapter && <Pages chapter={chapter} pages={pages} direction={direction}
-        onClose={this.handleDeselectChapter} onLoad={this.handleLoadedPages}
-        onToggle={this.handleToggleDirection} />
+      {chapter && <Pages chapter={chapter} pages={pages}
+        isHorizontal={isHorizontal} toggleHorizontal={this.toggleHorizontal}
+        onClose={this.handleDeselectChapter} onLoad={this.handleLoadedPages} />
       }
     </View>
   }
@@ -79,7 +81,9 @@ class App extends React.PureComponent {
   handleDeselectManga = () => this.setState({manga: null, chapters: [], tags: [], summary: null})
   handleSelectChapter = (chapter) => () => this.setState({ chapter })
   handleDeselectChapter = () => this.setState({chapter: null, pages: []})
-  handleToggleDirection = () => this.setState({ direction: this.state.direction === 'horizontal' ? 'vertical' : 'horizontal' })
+  toggleHorizontal = () => {
+    this.setState(({ isHorizontal }) => ({isHorizontal: !isHorizontal}))
+  }
 }
 
 export default App

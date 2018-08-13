@@ -25,7 +25,8 @@ export default class Pages extends React.PureComponent {
   }
 
   render () {
-    const { chapter, pages, direction, onClose, onToggle } = this.props
+    const { chapter, pages, isHorizontal, toggleHorizontal,
+      onClose } = this.props
     const { showNav } = this.state
 
     return <View style={styles.pagesContainer}>
@@ -39,8 +40,8 @@ export default class Pages extends React.PureComponent {
         <Text style={styles.chapter}>
           Ch. {chapter.title}
         </Text>
-        <Text style={styles.direction} onPress={onToggle}>
-          Swipe {direction === 'horizontal' ? 'Left <' : 'Down V'}
+        <Text style={styles.direction} onPress={toggleHorizontal}>
+          Swipe {isHorizontal ? 'Left <' : 'Down V'}
         </Text>
       </View>
       {/* paging does not work on vertical Android :/
@@ -50,8 +51,8 @@ export default class Pages extends React.PureComponent {
         renderItem={this.renderPage}
         keyExtractor={this.keyExtractor}
         pagingEnabled
-        horizontal={direction === 'horizontal'}
-        inverted={direction === 'horizontal'}
+        horizontal={isHorizontal}
+        inverted={isHorizontal}
         directionalLockEnabled
       />}
     </View>
