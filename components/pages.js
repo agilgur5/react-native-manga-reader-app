@@ -16,12 +16,12 @@ export default class Pages extends React.PureComponent {
   }
 
   renderPage = ({ item }) => (
-    <Page direction={this.props.direction} page={item} />
+    <Page page={item} direction={this.props.direction}
+      toggleNav={this.toggleNav} />
   )
   keyExtractor (item) { return item }
 
   toggleNav = () => {
-    console.log('toggling nav...')
     this.setState(({showNav}) => ({showNav: !showNav}))
   }
 
@@ -41,19 +41,14 @@ export default class Pages extends React.PureComponent {
           Direction: {direction === 'horizontal' ? 'Left' : 'Down'}
         </Text>
       </View>
-      <TouchableWithoutFeedback onLongPress={this.toggleNav}>
-        <View style={styles.pagesList}>
-          {pages.length && <FlatList
-            style={styles.pagesList}
-            data={pages}
-            renderItem={this.renderPage}
-            keyExtractor={this.keyExtractor}
-            horizontal={direction === 'horizontal'}
-            inverted={direction === 'horizontal'}
-            directionalLockEnabled
-          />}
-        </View>
-      </TouchableWithoutFeedback>
+      {pages.length && <FlatList
+        data={pages}
+        renderItem={this.renderPage}
+        keyExtractor={this.keyExtractor}
+        horizontal={direction === 'horizontal'}
+        inverted={direction === 'horizontal'}
+        directionalLockEnabled
+      />}
     </View>
   }
 }
@@ -61,36 +56,38 @@ export default class Pages extends React.PureComponent {
 class Page extends React.PureComponent {
   state = {
     image: null,
-    width: 0,
-    height: 0
+    imageWidth: 0,
+    imageHeight: 0
   }
 
   componentWillMount () {
     const { page } = this.props
     getImage(page).then((image) => {
       this.setState({ image })
-      Image.getSize(image, (width, height) => this.setState({ width, height }))
+      Image.getSize(image, (imageWidth, imageHeight) =>
+        this.setState({ imageWidth, imageHeight })
+      )
     })
   }
 
   render () {
-    const { direction } = this.props
-    const { image, width, height } = this.state
+    const { direction, toggleNav } = this.props
+    const { image, imageWidth, imageHeight } = this.state
 
-    const dimensions = Dimensions.get('window')
-    const size = direction === 'horizontal'
-      ? { height: dimensions.height }
-      : { width: dimensions.width }
+    const { height, width } = Dimensions.get('window')
+    const size = direction === 'horizontal' ? { height } : { width }
 
-    return <View style={styles.pagesList} onMoveShouldSetResponder={() => true}>
-      {image && <Image
-        style={{
-          ...size,
-          aspectRatio: width / height
-        }}
-        resizeMode='cover'
-        source={{uri: image}}
-      />}
-    </View>
+    return <TouchableWithoutFeedback onLongPress={toggleNav}>
+      <View>
+        {image && <Image
+          style={{
+            ...size,
+            aspectRatio: imageWidth / imageHeight
+          }}
+          resizeMode='cover'
+          source={{uri: image}}
+        />}
+      </View>
+    </TouchableWithoutFeedback>
   }
 }

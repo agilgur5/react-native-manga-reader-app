@@ -14,9 +14,6 @@ const styles = {
     width: '100%',
     height: 34
   },
-  pagesList: {
-    flex: 1
-  },
   close: {
     position: 'absolute',
     left: 0,
