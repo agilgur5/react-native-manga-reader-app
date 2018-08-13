@@ -32,6 +32,19 @@ export default class PageList extends React.PureComponent {
     const pageNum = Math.floor(isHorizontal ? x / width : y / height) + 1
     this.setState({currentPage: pageNum})
   }
+  getContentOffset = () => {
+    const isHorizontal = this.props.isHorizontal
+    const pageNum = this.state.currentPage
+    const { width, height } = Dimensions.get('window')
+
+    const x = width * (pageNum - 1)
+    const y = height * (pageNum - 1)
+    const initOffset = {x: 0, y: 0}
+    return {
+      ...initOffset,
+      ...(isHorizontal ? {x} : {y})
+    }
+  }
 
   toggleNav = () => {
     this.setState(({showNav}) => ({showNav: !showNav}))
@@ -70,6 +83,7 @@ export default class PageList extends React.PureComponent {
         inverted={isHorizontal}
         directionalLockEnabled
         onMomentumScrollEnd={this.onScrollEnd}
+        contentOffset={this.getContentOffset()}
       />
     </View>
   }
