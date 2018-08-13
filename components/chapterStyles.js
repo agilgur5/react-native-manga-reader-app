@@ -7,21 +7,34 @@ const styles = {
     right: 0,
     backgroundColor: '#333'
   },
+  navBar: {
+    width: '100%',
+    height: 34
+  },
+  back: {
+    position: 'absolute',
+    left: 0,
+    zIndex: 1, // to be above the chapter text (since it's relative)
+    fontSize: 30,
+    color: 'gray'
+  },
+  navTitle: {
+    position: 'relative', // needed to center
+    textAlign: 'center',
+    fontSize: 30,
+    color: 'gray'
+  },
   header: {
     flexDirection: 'row',
     maxHeight: 349,
     backgroundColor: '#1a1a1a'
   },
-  imageContainer: {
-    position: 'relative',
-    width: '33%',
-    maxHeight: 349, // also needed here for proper fit
-    padding: 3,
-    aspectRatio: 0.642857143
-  },
   image: {
-    width: '100%',
+    width: '33%',
     height: '100%',
+    maxHeight: 349, // also needed here for proper fit
+    aspectRatio: 0.642857143,
+    padding: 3,
     backgroundColor: '#000'
   },
   descriptionContainer: {

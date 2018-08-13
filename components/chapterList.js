@@ -22,12 +22,16 @@ export default class ChapterList extends React.PureComponent {
     const { manga, chapters, tags, summary, onClose } = this.props
 
     return <View style={styles.topLevel}>
+      <View style={styles.navBar}>
+        <Text style={styles.back} onPress={onClose}>
+          {'<'} Back
+        </Text>
+        <Text style={styles.navTitle}>
+          {manga.title}
+        </Text>
+      </View>
       <View style={styles.header}>
-        <TouchableWithoutFeedback onPress={onClose}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{uri: manga.cover}} />
-          </View>
-        </TouchableWithoutFeedback>
+        <Image style={styles.image} source={{uri: manga.cover}} />
         <View style={styles.descriptionContainer}>
           <Text style={styles.title}>
             {manga.title.toUpperCase()}
