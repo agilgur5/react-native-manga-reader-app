@@ -83,6 +83,8 @@ class Page extends React.PureComponent {
     const { image, imageWidth, imageHeight } = this.state
 
     const { height, width } = Dimensions.get('window')
+    // aspectRatio will be > 1, so set width instead of height
+    const imageSize = imageWidth > imageHeight ? { width } : { height }
 
     return <TouchableWithoutFeedback onLongPress={toggleNav}>
       <View style={{
@@ -91,7 +93,7 @@ class Page extends React.PureComponent {
       }}>
         {image && <Image
           style={{
-            height,
+            ...imageSize,
             aspectRatio: imageWidth / imageHeight
           }}
           resizeMode='cover'
