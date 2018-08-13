@@ -32,7 +32,7 @@ export default class PageList extends React.PureComponent {
     return <View style={styles.pagesContainer}>
       <View style={{
         ...styles.navBar,
-        opacity: showNav ? 0.8 : 0
+        opacity: showNav ? 0.85 : 0
       }}>
         <Text style={styles.back} onPress={onClose}>
           {'<'} Back

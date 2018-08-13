@@ -1,6 +1,6 @@
 const textStyles = {
   fontSize: 30,
-  color: 'blue'
+  color: 'gray'
 }
 
 const styles = {
@@ -15,9 +15,9 @@ const styles = {
   navBar: {
     position: 'absolute',
     zIndex: 1,
-    backgroundColor: 'white',
     width: '100%',
-    height: 34
+    height: 34,
+    backgroundColor: '#333'
   },
   back: {
     position: 'absolute',
