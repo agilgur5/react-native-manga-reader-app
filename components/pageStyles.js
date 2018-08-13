@@ -27,6 +27,10 @@ const styles = {
     fontSize: 32,
     color: 'red',
     backgroundColor: 'transparent'
+  },
+  page: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 

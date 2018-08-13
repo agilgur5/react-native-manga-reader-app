@@ -16,8 +16,7 @@ export default class Pages extends React.PureComponent {
   }
 
   renderPage = ({ item }) => (
-    <Page page={item} direction={this.props.direction}
-      toggleNav={this.toggleNav} />
+    <Page page={item} toggleNav={this.toggleNav} />
   )
   keyExtractor (item) { return item }
 
@@ -41,10 +40,13 @@ export default class Pages extends React.PureComponent {
           Direction: {direction === 'horizontal' ? 'Left' : 'Down'}
         </Text>
       </View>
+      {/* paging does not work on vertical Android :/
+      https://facebook.github.io/react-native/docs/scrollview#pagingenabled */}
       {pages.length && <FlatList
         data={pages}
         renderItem={this.renderPage}
         keyExtractor={this.keyExtractor}
+        pagingEnabled
         horizontal={direction === 'horizontal'}
         inverted={direction === 'horizontal'}
         directionalLockEnabled
@@ -71,17 +73,19 @@ class Page extends React.PureComponent {
   }
 
   render () {
-    const { direction, toggleNav } = this.props
+    const { toggleNav } = this.props
     const { image, imageWidth, imageHeight } = this.state
 
     const { height, width } = Dimensions.get('window')
-    const size = direction === 'horizontal' ? { height } : { width }
 
     return <TouchableWithoutFeedback onLongPress={toggleNav}>
-      <View>
+      <View style={{
+        ...styles.page,
+        ...{ height, width }
+      }}>
         {image && <Image
           style={{
-            ...size,
+            height,
             aspectRatio: imageWidth / imageHeight
           }}
           resizeMode='cover'
