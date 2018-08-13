@@ -34,13 +34,13 @@ export default class Pages extends React.PureComponent {
         opacity: showNav ? 0.8 : 0
       }}>
         <Text style={styles.back} onPress={onClose}>
-          Back
+          {'<'} Back
         </Text>
         <Text style={styles.chapter}>
           Ch. {chapter.title}
         </Text>
         <Text style={styles.direction} onPress={onToggle}>
-          Direction: {direction === 'horizontal' ? 'Left' : 'Down'}
+          Swipe {direction === 'horizontal' ? 'Left <' : 'Down V'}
         </Text>
       </View>
       {/* paging does not work on vertical Android :/
