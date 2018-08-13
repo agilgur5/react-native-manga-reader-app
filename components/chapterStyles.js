@@ -1,5 +1,5 @@
 const styles = {
-  chapters: {
+  topLevel: {
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -11,43 +11,48 @@ const styles = {
     flexDirection: 'row',
     backgroundColor: '#1a1a1a'
   },
-  description: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0
-  },
-  descriptionTextContainer: {
-    padding: 3,
-    paddingRight: 16
-  },
-  descriptionText: {
-    color: '#fff',
-    fontSize: 16,
-    lineHeight: 20
-  },
   imageContainer: {
     position: 'relative',
+    width: '33%',
     padding: 3,
     aspectRatio: 0.642857143
   },
   image: {
-    position: 'absolute',
-    top: 3,
-    bottom: 3,
-    left: 3,
-    right: 3,
     width: '100%',
+    height: '100%',
     backgroundColor: '#000'
   },
-  chaptersList: {},
+  descriptionContainer: {
+    width: '67%',
+    padding: 3,
+    paddingRight: 16
+  },
+  title: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '900',
+    lineHeight: 16,
+    paddingBottom: 8
+  },
+  tags: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '500',
+    lineHeight: 16,
+    paddingBottom: 8
+  },
+  summary: {
+    color: '#fff',
+    fontSize: 16,
+    lineHeight: 20
+  },
   chapter: {
     padding: 16,
     backgroundColor: '#333',
     borderBottomWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.3)'
   },
-  chapterText: {
+  chapterTitle: {
     fontSize: 14,
     lineHeight: 16,
     fontWeight: '900',
