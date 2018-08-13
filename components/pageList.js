@@ -9,7 +9,7 @@ import styles from './pageStyles.js'
 export default class PageList extends React.PureComponent {
   state = {
     showNav: false,
-    currentPage: 0
+    currentPage: 1
   }
   componentWillMount () {
     const { chapter, onLoad } = this.props
@@ -28,8 +28,8 @@ export default class PageList extends React.PureComponent {
     const { width, height } = layoutMeasurement
 
     const isHorizontal = this.props.isHorizontal
-    // divide offset by size to get current pageNum
-    const pageNum = Math.floor(isHorizontal ? x / width : y / height)
+    // divide offset by size to get current pageNum, 1-indexed
+    const pageNum = Math.floor(isHorizontal ? x / width : y / height) + 1
     this.setState({currentPage: pageNum})
   }
 
