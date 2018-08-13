@@ -6,7 +6,7 @@ import { getPages, getImage } from '../utils/api.js'
 
 import styles from './pageStyles.js'
 
-export default class Pages extends React.PureComponent {
+export default class PageList extends React.PureComponent {
   state = {
     showNav: false
   }
@@ -15,9 +15,9 @@ export default class Pages extends React.PureComponent {
     getPages(chapter.link).then(onLoad)
   }
 
-  renderPage = ({ item }) => (
-    <Page page={item} toggleNav={this.toggleNav} />
-  )
+  renderPage = ({ item }) => {
+    return <Page page={item} toggleNav={this.toggleNav} />
+  }
   keyExtractor (item) { return item }
 
   toggleNav = () => {

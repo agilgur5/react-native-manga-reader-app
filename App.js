@@ -3,9 +3,9 @@ import { getLatest } from './utils/api.js'
 
 import { StatusBar, View } from 'react-native'
 
-import MangaList from './components/manga.js'
-import Pages from './components/pages.js'
-import Chapters from './components/chapters.js'
+import MangaList from './components/mangaList.js'
+import PageList from './components/pageList.js'
+import ChapterList from './components/chapterList.js'
 
 const styles = {
   base: {
@@ -43,13 +43,13 @@ class App extends React.PureComponent {
         onRefresh={this.handleRefresh} onEndReached={this.handleLoadMore}
         onSelect={this.handleSelectManga} />
 
-      {manga && <Chapters manga={manga} chapters={chapters} tags={tags}
+      {manga && <ChapterList manga={manga} chapters={chapters} tags={tags}
         summary={summary} onClose={this.handleDeselectManga}
         onSelect={this.handleSelectChapter}
         onLoad={this.handleLoadedChapters} />
       }
 
-      {chapter && <Pages chapter={chapter} pages={pages}
+      {chapter && <PageList chapter={chapter} pages={pages}
         isHorizontal={isHorizontal} toggleHorizontal={this.toggleHorizontal}
         onClose={this.handleDeselectChapter} onLoad={this.handleLoadedPages} />
       }

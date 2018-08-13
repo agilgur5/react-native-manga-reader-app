@@ -6,7 +6,7 @@ import { getChapters } from '../utils/api.js'
 
 import styles from './chapterStyles.js'
 
-export default class Chapters extends React.PureComponent {
+export default class ChapterList extends React.PureComponent {
   componentWillMount () {
     const { manga, onLoad } = this.props
     getChapters(manga.link).then(onLoad)
