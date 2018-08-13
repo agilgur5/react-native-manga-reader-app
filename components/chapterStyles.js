@@ -9,11 +9,13 @@ const styles = {
   },
   header: {
     flexDirection: 'row',
+    maxHeight: 349,
     backgroundColor: '#1a1a1a'
   },
   imageContainer: {
     position: 'relative',
     width: '33%',
+    maxHeight: 349, // also needed here for proper fit
     padding: 3,
     aspectRatio: 0.642857143
   },
