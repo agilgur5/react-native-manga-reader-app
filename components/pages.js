@@ -25,16 +25,19 @@ export default class Pages extends React.PureComponent {
   }
 
   render () {
-    const { pages, direction, onClose, onToggle } = this.props
+    const { chapter, pages, direction, onClose, onToggle } = this.props
     const { showNav } = this.state
 
     return <View style={styles.pagesContainer}>
       <View style={{
         ...styles.navBar,
-        opacity: showNav ? 80 : 0
+        opacity: showNav ? 0.8 : 0
       }}>
-        <Text style={styles.close} onPress={onClose}>
+        <Text style={styles.back} onPress={onClose}>
           Back
+        </Text>
+        <Text style={styles.chapter}>
+          Ch. {chapter.title}
         </Text>
         <Text style={styles.direction} onPress={onToggle}>
           Direction: {direction === 'horizontal' ? 'Left' : 'Down'}

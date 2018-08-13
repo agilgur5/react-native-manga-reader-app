@@ -1,3 +1,8 @@
+const textStyles = {
+  fontSize: 30,
+  color: 'blue'
+}
+
 const styles = {
   pagesContainer: {
     position: 'absolute',
@@ -14,19 +19,21 @@ const styles = {
     width: '100%',
     height: 34
   },
-  close: {
+  back: {
     position: 'absolute',
     left: 0,
-    fontSize: 32,
-    color: 'red',
-    backgroundColor: 'transparent'
+    zIndex: 1, // to be above the chapter text (since it's relative)
+    ...textStyles
+  },
+  chapter: {
+    position: 'relative', // needed to center
+    textAlign: 'center',
+    ...textStyles
   },
   direction: {
     position: 'absolute',
     right: 0,
-    fontSize: 32,
-    color: 'red',
-    backgroundColor: 'transparent'
+    ...textStyles
   },
   page: {
     justifyContent: 'center',
