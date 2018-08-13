@@ -46,15 +46,17 @@ export default class PageList extends React.PureComponent {
       </View>
       {/* paging does not work on vertical Android :/
       https://facebook.github.io/react-native/docs/scrollview#pagingenabled */}
-      {pages.length && <FlatList
+      <FlatList
         data={pages}
         renderItem={this.renderPage}
         keyExtractor={this.keyExtractor}
+        refreshing={pages.length === 0}
+        onRefresh={() => null}
         pagingEnabled
         horizontal={isHorizontal}
         inverted={isHorizontal}
         directionalLockEnabled
-      />}
+      />
     </View>
   }
 }

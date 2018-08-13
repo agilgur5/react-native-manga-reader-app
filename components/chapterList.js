@@ -36,7 +36,7 @@ export default class ChapterList extends React.PureComponent {
             {tags.join(', ').toUpperCase()}
           </Text>}
           <ScrollView>
-            {summary && <Text style={styles.summary}>{summary}</Text>}
+            <Text style={styles.summary}>{summary}</Text>
           </ScrollView>
         </View>
       </View>
@@ -45,6 +45,7 @@ export default class ChapterList extends React.PureComponent {
         keyExtractor={this.keyExtractor}
         renderItem={this.renderChapter}
         refreshing={chapters.length === 0}
+        onRefresh={() => null}
       />
     </View>
   }
