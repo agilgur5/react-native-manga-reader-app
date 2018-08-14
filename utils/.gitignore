@@ -1,2 +1,2 @@
-# don't commit any site data
-api.js
+# don't commit any site specific data
+scraperDrivers/
