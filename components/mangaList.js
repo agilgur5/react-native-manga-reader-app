@@ -5,7 +5,7 @@ import { Dimensions, FlatList, View, Text, Image,
 import styles from './mangaStyles.js'
 
 export default class MangaList extends React.PureComponent {
-  getKey = ({ key }) => key
+  keyExtractor = (manga) => manga.link
 
   renderManga = ({ item }) => (
     <Manga manga={item} onSelect={this.props.onSelect(item)} />
@@ -20,7 +20,7 @@ export default class MangaList extends React.PureComponent {
         style={styles.mangas}
         numColumns={columns}
         data={mangas}
-        keyExtractor={this.getKey}
+        keyExtractor={this.keyExtractor}
         refreshing={refreshing}
         onRefresh={onRefresh}
         onEndReached={onEndReached}

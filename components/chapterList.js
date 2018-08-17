@@ -12,7 +12,7 @@ export default class ChapterList extends React.PureComponent {
     getChapters(manga.link).then(onLoad)
   }
 
-  keyExtractor = ({ key }) => key
+  keyExtractor = (chapter) => chapter.link
 
   renderChapter = ({ item }) => {
     return <Chapter chapter={item} onSelect={this.props.onSelect(item)} />
