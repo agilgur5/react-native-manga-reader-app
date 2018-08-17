@@ -40,7 +40,7 @@ class App extends React.PureComponent {
   }
 
   componentWillMount () {
-    this.handleRefresh()
+    this.refresh()
   }
 
   render () {
@@ -52,27 +52,26 @@ class App extends React.PureComponent {
       <TextInput style={styles.text} placeholder='Search...'
         placeholderTextColor={styles.text.color}
         onChangeText={this.submitQuery} />
-      <MangaList mangas={searchedMangas} onSelect={this.handleSelectManga} />
+      <MangaList mangas={searchedMangas} onSelect={this.selectManga} />
 
       <Text style={styles.text}>Latest</Text>
       <MangaList refreshing={refreshing} mangas={mangas}
-        onRefresh={this.handleRefresh} onEndReached={this.handleLoadMore}
-        onSelect={this.handleSelectManga} />
+        onRefresh={this.refresh} onEndReached={this.loadMore}
+        onSelect={this.selectManga} />
 
       {manga && <ChapterList manga={manga} chapters={chapters} tags={tags}
-        summary={summary} onClose={this.handleDeselectManga}
-        onSelect={this.handleSelectChapter}
-        onLoad={this.handleLoadedChapters} />
+        summary={summary} onClose={this.deselectManga}
+        onSelect={this.selectChapter} onLoad={this.handleLoadedChapters} />
       }
 
       {chapter && <PageList chapter={chapter} pages={pages}
         isHorizontal={isHorizontal} toggleHorizontal={this.toggleHorizontal}
-        onClose={this.handleDeselectChapter} onLoad={this.handleLoadedPages} />
+        onClose={this.deselectChapter} onLoad={this.handleLoadedPages} />
       }
     </View>
   }
 
-  handleRefresh = () => {
+  refresh = () => {
     this.setState({page: 1, refreshing: true}, () =>
       getLatest(this.state.page).then((mangas) => {
         this.setState({mangas, refreshing: false})
@@ -80,7 +79,7 @@ class App extends React.PureComponent {
     )
   }
 
-  handleLoadMore = () => {
+  loadMore = () => {
     this.setState({page: ++this.state.page, refreshing: true}, () =>
       getLatest(this.state.page).then((mangas) => {
         this.setState({
@@ -93,10 +92,10 @@ class App extends React.PureComponent {
 
   handleLoadedChapters = ({ chapters, tags, summary }) => this.setState({ chapters, tags, summary })
   handleLoadedPages = (pages) => this.setState({ pages })
-  handleSelectManga = (manga) => () => this.setState({ manga })
-  handleDeselectManga = () => this.setState({manga: null, chapters: [], tags: [], summary: null})
-  handleSelectChapter = (chapter) => () => this.setState({ chapter })
-  handleDeselectChapter = () => this.setState({chapter: null, pages: []})
+  selectManga = (manga) => () => this.setState({ manga })
+  deselectManga = () => this.setState({manga: null, chapters: [], tags: [], summary: null})
+  selectChapter = (chapter) => () => this.setState({ chapter })
+  deselectChapter = () => this.setState({chapter: null, pages: []})
   toggleHorizontal = () => {
     this.setState(({ isHorizontal }) => ({isHorizontal: !isHorizontal}))
   }
