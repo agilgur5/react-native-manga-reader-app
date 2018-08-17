@@ -16,7 +16,6 @@ export default class MangaList extends React.PureComponent {
     const columns = Dimensions.get('window').width < 512 ? 3 : 4
 
     return <FlatList
-      style={styles.mangas}
       numColumns={columns}
       data={mangas}
       keyExtractor={this.keyExtractor}
@@ -46,7 +45,7 @@ class Manga extends React.PureComponent {
             color: manga.release === 'Today' ? '#fff' : '#aaa'
           }}
         >
-          {manga.release.toUpperCase()}
+          {manga.release && manga.release.toUpperCase()}
         </Text>
       </View>
     </TouchableWithoutFeedback>

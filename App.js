@@ -1,7 +1,7 @@
 import React from 'react'
-import { getLatest } from './utils/api.js'
+import { getLatest, getSearch } from './utils/api.js'
 
-import { StatusBar, View } from 'react-native'
+import { StatusBar, View, Text, TextInput } from 'react-native'
 
 import MangaList from './components/mangaList.js'
 import PageList from './components/pageList.js'
@@ -11,7 +11,16 @@ const styles = {
   base: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#1a1a1a'
+    backgroundColor: '#1a1a1a',
+    flex: 1,
+    justifyContent: 'flex-start'
+  },
+  text: {
+    width: '100%',
+    color: '#aaa',
+    fontSize: 26,
+    paddingTop: 15,
+    paddingBottom: 15
   }
 }
 
@@ -22,6 +31,7 @@ class App extends React.PureComponent {
     manga: null,
     chapter: null,
     mangas: [],
+    searchedMangas: [],
     chapters: [],
     tags: [],
     summary: null,
@@ -34,11 +44,17 @@ class App extends React.PureComponent {
   }
 
   render () {
-    const { refreshing, manga, chapter, mangas, chapters, tags, summary, pages,
-      isHorizontal } = this.state
+    const { refreshing, manga, chapter, mangas, searchedMangas, chapters, tags,
+      summary, pages, isHorizontal } = this.state
 
     return <View style={styles.base}>
       <StatusBar hidden />
+      <TextInput style={styles.text} placeholder='Search...'
+        placeholderTextColor={styles.text.color}
+        onChangeText={this.submitQuery} />
+      <MangaList mangas={searchedMangas} onSelect={this.handleSelectManga} />
+
+      <Text style={styles.text}>Latest</Text>
       <MangaList refreshing={refreshing} mangas={mangas}
         onRefresh={this.handleRefresh} onEndReached={this.handleLoadMore}
         onSelect={this.handleSelectManga} />
@@ -83,6 +99,14 @@ class App extends React.PureComponent {
   handleDeselectChapter = () => this.setState({chapter: null, pages: []})
   toggleHorizontal = () => {
     this.setState(({ isHorizontal }) => ({isHorizontal: !isHorizontal}))
+  }
+  submitQuery = (query) => {
+    // empty results if empty query
+    if (!query) {
+      this.setState({searchedMangas: []})
+      return
+    }
+    getSearch(query).then((searchedMangas) => this.setState({searchedMangas}))
   }
 }
 

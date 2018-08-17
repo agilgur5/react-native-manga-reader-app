@@ -1,7 +1,4 @@
 const styles = {
-  mangas: {
-    flex: 1
-  },
   manga: {
     margin: 3,
     flex: 1,
