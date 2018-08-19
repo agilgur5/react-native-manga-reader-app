@@ -7,22 +7,7 @@ import MangaList from './components/mangaList.js'
 import PageList from './components/pageList.js'
 import ChapterList from './components/chapterList.js'
 
-const styles = {
-  base: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#1a1a1a',
-    flex: 1,
-    justifyContent: 'flex-start'
-  },
-  text: {
-    width: '100%',
-    color: '#aaa',
-    fontSize: 26,
-    paddingTop: 15,
-    paddingBottom: 15
-  }
-}
+import styles from './AppStyles.js'
 
 class App extends React.PureComponent {
   state = {
