@@ -27,7 +27,6 @@ const styles = {
 class App extends React.PureComponent {
   state = {
     refreshing: false,
-    page: 1,
     manga: null,
     chapter: null,
     mangas: [],
@@ -38,6 +37,8 @@ class App extends React.PureComponent {
     pages: [],
     isHorizontal: true
   }
+  // not used in the UI
+  _page = 1
 
   componentWillMount () {
     this.refresh()
@@ -72,22 +73,22 @@ class App extends React.PureComponent {
   }
 
   refresh = () => {
-    this.setState({page: 1, refreshing: true}, () =>
-      getLatest(this.state.page).then((mangas) => {
-        this.setState({mangas, refreshing: false})
-      })
-    )
+    this._page = 1
+    this.setState({refreshing: true})
+    getLatest(1).then((mangas) => {
+      this.setState({mangas, refreshing: false})
+    })
   }
 
   loadMore = () => {
-    this.setState({page: ++this.state.page, refreshing: true}, () =>
-      getLatest(this.state.page).then((mangas) => {
-        this.setState({
-          mangas: [ ...this.state.mangas, ...mangas ],
-          refreshing: false
-        })
-      })
-    )
+    this._page += 1
+    this.setState({refreshing: true})
+    getLatest(this._page).then((newMangas) => {
+      this.setState(({currMangas}) => ({
+        mangas: [ ...currMangas, ...newMangas ],
+        refreshing: false
+      }))
+    })
   }
 
   handleLoadedChapters = ({ chapters, tags, summary }) => this.setState({ chapters, tags, summary })
