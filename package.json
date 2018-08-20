@@ -12,6 +12,9 @@
   "dependencies": {
     "cheerio-without-node-native": "^0.20.2",
     "expo": "^29.0.0",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.5",
+    "mobx-state-tree": "^3.2.1",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz"
   },

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Dimensions, FlatList, View, Text, Image,
   TouchableWithoutFeedback } from 'react-native'
+import { observer } from 'mobx-react'
 
 import styles from './mangaStyles.js'
 
-export default class MangaList extends React.PureComponent {
+@observer
+export default class MangaList extends React.Component {
   keyExtractor = (manga) => manga.link
 
   renderManga = ({ item }) => (
@@ -15,9 +17,11 @@ export default class MangaList extends React.PureComponent {
     const { refreshing, mangas, onRefresh, onEndReached } = this.props
     const columns = Dimensions.get('window').width < 512 ? 3 : 4
 
+    // use .slice() below because FlatList is not an observer and refs are
+    // constant -- .slice() creates a new ref
     return <FlatList
       numColumns={columns}
-      data={mangas}
+      data={mangas.slice()}
       keyExtractor={this.keyExtractor}
       renderItem={this.renderManga}
       refreshing={refreshing}

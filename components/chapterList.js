@@ -1,15 +1,21 @@
 import React from 'react'
 import { FlatList, ScrollView, View, Text, Image,
   TouchableWithoutFeedback } from 'react-native'
-
-import { getChapters } from '../utils/api.js'
+import { inject, observer } from 'mobx-react'
 
 import styles from './chapterStyles.js'
 
-export default class ChapterList extends React.PureComponent {
+@inject(({appStore}) => ({
+  manga: appStore.selectedManga,
+  onClose: appStore.deselectManga,
+  onSelect (chapter) {
+    return function () { appStore.selectedManga.selectChapter(chapter) }
+  }
+}))
+@observer
+export default class ChapterList extends React.Component {
   componentWillMount () {
-    const { manga, onLoad } = this.props
-    getChapters(manga.link).then(onLoad)
+    this.props.manga.loadChapters()
   }
 
   keyExtractor = (chapter) => chapter.link
@@ -19,7 +25,7 @@ export default class ChapterList extends React.PureComponent {
   }
 
   render () {
-    const { manga, chapters, tags, summary, onClose } = this.props
+    const { manga, onClose } = this.props
 
     return <View style={styles.topLevel}>
       <View style={styles.navBar}>
@@ -36,19 +42,19 @@ export default class ChapterList extends React.PureComponent {
           <Text style={styles.title}>
             {manga.title.toUpperCase()}
           </Text>
-          {tags.length && <Text style={styles.tags}>
-            {tags.join(', ').toUpperCase()}
+          {manga.tags.length && <Text style={styles.tags}>
+            {manga.tags.join(', ').toUpperCase()}
           </Text>}
           <ScrollView>
-            <Text style={styles.summary}>{summary}</Text>
+            <Text style={styles.summary}>{manga.summary}</Text>
           </ScrollView>
         </View>
       </View>
       <FlatList
-        data={chapters}
+        data={manga.chapters}
         keyExtractor={this.keyExtractor}
         renderItem={this.renderChapter}
-        refreshing={chapters.length === 0}
+        refreshing={manga.chapters.length === 0}
         onRefresh={() => null}
       />
     </View>

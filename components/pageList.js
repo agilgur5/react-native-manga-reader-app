@@ -1,25 +1,32 @@
 import React from 'react'
 import { Dimensions, FlatList, View, Text, Image,
   TouchableWithoutFeedback } from 'react-native'
+import { inject, observer } from 'mobx-react'
 
-import { getPages, getImage } from '../utils/api.js'
+import { getImage } from '../models/api.js'
 
 import styles from './pageStyles.js'
 
-export default class PageList extends React.PureComponent {
+@inject(({appStore}) => ({
+  isHorizontal: appStore.isHorizontal,
+  toggleHorizontal: appStore.toggleHorizontal,
+  chapter: appStore.selectedManga.selectedChapter,
+  onClose: appStore.selectedManga.deselectChapter
+}))
+@observer
+export default class PageList extends React.Component {
   state = {
     showNav: false,
     currentPage: 1
   }
   componentWillMount () {
-    const { chapter, onLoad } = this.props
-    getPages(chapter.link).then(onLoad)
+    this.props.chapter.loadPages()
   }
 
   renderPage = ({ item }) => {
-    return <Page page={item} toggleNav={this.toggleNav} />
+    return <Page page={item.link} toggleNav={this.toggleNav} />
   }
-  keyExtractor (item) { return item }
+  keyExtractor (page) { return page.link }
 
   // keep track of current page
   onScrollEnd = (ev) => {
@@ -51,8 +58,7 @@ export default class PageList extends React.PureComponent {
   }
 
   render () {
-    const { chapter, pages, isHorizontal, toggleHorizontal,
-      onClose } = this.props
+    const { isHorizontal, toggleHorizontal, chapter, onClose } = this.props
     const { showNav, currentPage } = this.state
 
     return <View style={styles.pagesContainer}>
@@ -64,7 +70,7 @@ export default class PageList extends React.PureComponent {
           {'<'} Back
         </Text>
         <Text style={styles.chapter}>
-          Ch. {chapter.title} ({currentPage}/{pages.length})
+          Ch. {chapter.title} ({currentPage}/{chapter.pages.length})
         </Text>
         <Text style={styles.direction} onPress={toggleHorizontal}>
           Swipe {isHorizontal ? 'Left <' : 'Down V'}
@@ -73,10 +79,10 @@ export default class PageList extends React.PureComponent {
       {/* paging does not work on vertical Android :/
       https://facebook.github.io/react-native/docs/scrollview#pagingenabled */}
       <FlatList
-        data={pages}
+        data={chapter.pages}
         renderItem={this.renderPage}
         keyExtractor={this.keyExtractor}
-        refreshing={pages.length === 0}
+        refreshing={chapter.pages.length === 0}
         onRefresh={() => null}
         pagingEnabled
         horizontal={isHorizontal}
