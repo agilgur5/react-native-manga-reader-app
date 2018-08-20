@@ -8,10 +8,9 @@ import styles from './mangaStyles.js'
 @observer
 export default class MangaList extends React.Component {
   keyExtractor = (manga) => manga.link
-
-  renderManga = ({ item }) => (
-    <Manga manga={item} onSelect={this.props.onSelect(item)} />
-  )
+  renderManga = ({ item }) => {
+    return <Manga manga={item} onSelect={this.props.onSelect} />
+  }
 
   render () {
     const { refreshing, mangas, onRefresh, onEndReached } = this.props
@@ -34,9 +33,9 @@ export default class MangaList extends React.Component {
 
 class Manga extends React.PureComponent {
   render () {
-    const { manga, onSelect } = this.props
+    const { manga } = this.props
 
-    return <TouchableWithoutFeedback onPress={onSelect}>
+    return <TouchableWithoutFeedback onPress={this.onSelect}>
       <View style={styles.manga}>
         <Image style={styles.image} source={{uri: manga.cover}} />
         <View style={styles.shadeOverlay} />
@@ -53,5 +52,9 @@ class Manga extends React.PureComponent {
         </Text>
       </View>
     </TouchableWithoutFeedback>
+  }
+
+  onSelect = () => {
+    this.props.onSelect(this.props.manga)
   }
 }

@@ -23,10 +23,13 @@ export default class PageList extends React.Component {
     this.props.chapter.loadPages()
   }
 
+  keyExtractor (page) { return page.link }
   renderPage = ({ item }) => {
     return <Page page={item.link} toggleNav={this.toggleNav} />
   }
-  keyExtractor (page) { return page.link }
+  toggleNav = () => {
+    this.setState(({showNav}) => ({showNav: !showNav}))
+  }
 
   // keep track of current page
   onScrollEnd = (ev) => {
@@ -51,10 +54,6 @@ export default class PageList extends React.Component {
       ...initOffset,
       ...(isHorizontal ? {x} : {y})
     }
-  }
-
-  toggleNav = () => {
-    this.setState(({showNav}) => ({showNav: !showNav}))
   }
 
   render () {

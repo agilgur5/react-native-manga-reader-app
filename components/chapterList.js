@@ -8,9 +8,7 @@ import styles from './chapterStyles.js'
 @inject(({appStore}) => ({
   manga: appStore.selectedManga,
   onClose: appStore.deselectManga,
-  onSelect (chapter) {
-    return function () { appStore.selectChapter(chapter) }
-  }
+  onSelect: appStore.selectChapter
 }))
 @observer
 export default class ChapterList extends React.Component {
@@ -19,9 +17,8 @@ export default class ChapterList extends React.Component {
   }
 
   keyExtractor = (chapter) => chapter.link
-
   renderChapter = ({ item }) => {
-    return <Chapter chapter={item} onSelect={this.props.onSelect(item)} />
+    return <Chapter chapter={item} onSelect={this.props.onSelect} />
   }
 
   render () {
@@ -63,14 +60,18 @@ export default class ChapterList extends React.Component {
 
 class Chapter extends React.PureComponent {
   render () {
-    const { chapter, onSelect } = this.props
+    const { chapter } = this.props
 
-    return <TouchableWithoutFeedback onPress={onSelect}>
+    return <TouchableWithoutFeedback onPress={this.onSelect}>
       <View style={styles.chapter}>
         <Text style={styles.chapterTitle}>
           CHAPTER {chapter.title}
         </Text>
       </View>
     </TouchableWithoutFeedback>
+  }
+
+  onSelect = () => {
+    this.props.onSelect(this.props.chapter)
   }
 }
