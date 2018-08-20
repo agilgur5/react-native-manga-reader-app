@@ -18,7 +18,7 @@ class MainView extends React.Component {
 
   render () {
     const { searchedMangas, submitQuery, latestMangas, refreshing, refresh,
-      loadMore, selectedManga } = this.props.appStore
+      loadMore, selectedManga, selectedChapter } = this.props.appStore
 
     return <View style={styles.base}>
       <StatusBar hidden />
@@ -32,7 +32,7 @@ class MainView extends React.Component {
 
       {selectedManga && <ChapterList />}
 
-      {selectedManga && selectedManga.selectedChapter && <PageList />}
+      {selectedChapter && <PageList />}
     </View>
   }
 

@@ -8,7 +8,8 @@ const AppModel = types.model('App', {
   refreshing: false,
   latestMangas: types.array(types.late(() => Manga)),
   searchedMangas: types.array(types.late(() => Manga)),
-  selectedManga: types.maybe(types.reference(types.late(() => Manga)))
+  selectedManga: types.maybe(types.reference(types.late(() => Manga))),
+  selectedChapter: types.maybe(types.reference(types.late(() => Chapter)))
 }).actions((self) => ({
   toggleHorizontal () {
     self.isHorizontal = !self.isHorizontal
@@ -43,6 +44,14 @@ const AppModel = types.model('App', {
 
   deselectManga () {
     self.selectedManga = undefined
+  },
+
+  selectChapter (chapter) {
+    self.selectedChapter = chapter.link
+  },
+
+  deselectChapter () {
+    self.selectedChapter = undefined
   }
 }))
 
@@ -53,23 +62,14 @@ const Manga = types.model('Manga', {
   release: types.maybe(types.string),
   chapters: types.array(types.late(() => Chapter)),
   tags: types.array(types.string),
-  summary: '',
-  selectedChapter: types.maybe(types.reference(types.late(() => Chapter)))
+  summary: ''
 }).actions((self) => ({
   loadChapters: flow(function * loadChapters () {
     const { chapters, tags, summary } = yield getChapters(self.link)
     self.chapters = chapters
     self.tags = tags
     self.summary = summary
-  }),
-
-  selectChapter (chapter) {
-    self.selectedChapter = chapter.link
-  },
-
-  deselectChapter () {
-    self.selectedChapter = undefined
-  }
+  })
 }))
 
 const Chapter = types.model('Chapter', {

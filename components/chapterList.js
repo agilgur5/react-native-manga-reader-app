@@ -9,7 +9,7 @@ import styles from './chapterStyles.js'
   manga: appStore.selectedManga,
   onClose: appStore.deselectManga,
   onSelect (chapter) {
-    return function () { appStore.selectedManga.selectChapter(chapter) }
+    return function () { appStore.selectChapter(chapter) }
   }
 }))
 @observer

@@ -10,8 +10,8 @@ import styles from './pageStyles.js'
 @inject(({appStore}) => ({
   isHorizontal: appStore.isHorizontal,
   toggleHorizontal: appStore.toggleHorizontal,
-  chapter: appStore.selectedManga.selectedChapter,
-  onClose: appStore.selectedManga.deselectChapter
+  chapter: appStore.selectedChapter,
+  onClose: appStore.deselectChapter
 }))
 @observer
 export default class PageList extends React.Component {
