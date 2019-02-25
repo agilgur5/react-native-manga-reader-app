@@ -1,5 +1,10 @@
 # react-native-manga-reader-app
 
+[//]: # (render icon from Expo CDN at its native dimensions)
+<p align='center'>
+  <img width='192' height='192' src='https://d1wp6m56sqw74a.cloudfront.net/~assets/48e9407ff061a854a5103c70faaf897f' />
+</p>
+
 A React Native / Expo app for cross-platform manga reading
 
 [View the Expo app](https://expo.io/@agilgur5/react-native-manga-reader-app)
