@@ -7,10 +7,15 @@ const AppModel = types.model('App', {
   latestPageNum: 1,
   refreshing: false,
   latestMangas: types.array(types.late(() => Manga)),
+  favoriteMangas: types.array(types.reference(types.late(() => Manga))),
   searchedMangas: types.array(types.late(() => Manga)),
   selectedManga: types.maybe(types.reference(types.late(() => Manga))),
   selectedChapter: types.maybe(types.reference(types.late(() => Chapter)))
-}).actions((self) => ({
+}).views((self) => ({
+  get isSelectedFavorite () {
+    return self.favoriteMangas.includes(self.selectedManga)
+  }
+})).actions((self) => ({
   toggleHorizontal () {
     self.isHorizontal = !self.isHorizontal
   },
@@ -52,6 +57,16 @@ const AppModel = types.model('App', {
 
   deselectChapter () {
     self.selectedChapter = undefined
+  },
+
+  addFavorite () {
+    self.favoriteMangas.push(self.selectedManga)
+  },
+
+  removeFavorite () {
+    self.favoriteMangas.splice(self.favoriteMangas.findIndex((elem) => {
+      return elem === self.selectedManga
+    }), 1)
   }
 }))
 
