@@ -5,7 +5,7 @@
     "slug": "react-native-manga-reader-app",
     "privacy": "public",
     "sdkVersion": "29.0.0",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "platforms": ["ios", "android"],
     "orientation": "portrait",
     "githubUrl": "https://github.com/agilgur5/react-native-manga-reader-app",
