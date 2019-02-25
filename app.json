@@ -13,13 +13,13 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#222222"
     },
     "updates": {
       "fallbackToCacheTimeout": 30000
     },
     "assetBundlePatterns": [
-      "**/*"
+      "./assets/*"
     ],
     "ios": {
       "supportsTablet": true
