@@ -6,41 +6,56 @@ const AppModel = types.model('App', {
   isHorizontal: true,
   latestPageNum: 1,
   refreshing: false,
-  latestMangas: types.array(types.late(() => Manga)),
-  favoriteMangas: types.array(types.reference(types.late(() => Manga))),
-  searchedMangas: types.array(types.late(() => Manga)),
+  mangas: types.map(types.late(() => Manga)),
+  latest: types.array(types.reference(types.late(() => Manga))),
+  favorites: types.array(types.reference(types.late(() => Manga))),
+  searched: types.array(types.reference(types.late(() => Manga))),
   selectedManga: types.maybe(types.reference(types.late(() => Manga))),
   selectedChapter: types.maybe(types.reference(types.late(() => Chapter)))
 }).views((self) => ({
   get isSelectedFavorite () {
-    return self.favoriteMangas.includes(self.selectedManga)
+    return self.favorites.includes(self.selectedManga)
   }
-})).actions((self) => ({
-  toggleHorizontal () {
+})).actions((self) => {
+  function addMangas (mangas) {
+    mangas.forEach(manga => self.mangas.put(manga))
+  }
+
+  function mangasToRefs (mangas) {
+    return mangas.map(({link}) => link)
+  }
+
+  return {toggleHorizontal () {
     self.isHorizontal = !self.isHorizontal
   },
 
   refresh: flow(function * refresh () {
     self.latestPageNum = 1
     self.refreshing = true
-    self.latestMangas = yield getLatest(1)
+    const newMangas = yield getLatest(1)
+    addMangas(newMangas)
+    self.latest = mangasToRefs(newMangas)
     self.refreshing = false
   }),
 
   loadMore: flow(function * loadMore () {
     self.latestPageNum += 1
     self.refreshing = true
-    self.latestMangas.push(...yield getLatest(self.latestPageNum))
+    const moreMangas = yield getLatest(self.latestPageNum)
+    addMangas(moreMangas)
+    self.latest.push(...mangasToRefs(moreMangas))
     self.refreshing = false
   }),
 
   submitQuery: flow(function * submitQuery (query) {
     // empty results if empty query
     if (!query) {
-      self.searchedMangas = []
+      self.searched = []
       return
     }
-    self.searchedMangas = yield getSearch(query)
+    const searched = yield getSearch(query)
+    addMangas(searched)
+    self.searched = mangasToRefs(searched)
   }),
 
   selectManga (manga) {
@@ -60,15 +75,15 @@ const AppModel = types.model('App', {
   },
 
   addFavorite () {
-    self.favoriteMangas.push(self.selectedManga)
+    self.favorites.push(self.selectedManga)
   },
 
   removeFavorite () {
-    self.favoriteMangas.splice(self.favoriteMangas.findIndex((elem) => {
+    self.favorites.splice(self.favorites.findIndex((elem) => {
       return elem === self.selectedManga
     }), 1)
-  }
-}))
+  }}
+})
 
 const Manga = types.model('Manga', {
   link: types.identifier,
