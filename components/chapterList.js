@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, ScrollView, View, Text, Image,
+import { FlatList, ScrollView, View, Text, Image, Button,
   TouchableWithoutFeedback } from 'react-native'
 import { inject, observer } from 'mobx-react'
 
@@ -8,6 +8,9 @@ import styles from './chapterStyles.js'
 @inject(({appStore}) => ({
   manga: appStore.selectedManga,
   onClose: appStore.deselectManga,
+  isFavorite: appStore.isSelectedFavorite,
+  addFavorite: appStore.addFavorite,
+  removeFavorite: appStore.removeFavorite,
   onSelect: appStore.selectChapter
 }))
 @observer
@@ -22,7 +25,8 @@ export default class ChapterList extends React.Component {
   }
 
   render () {
-    const { manga, onClose } = this.props
+    const { manga, isFavorite, addFavorite, removeFavorite,
+      onClose } = this.props
 
     return <View style={styles.topLevel}>
       <View style={styles.navBar}>
@@ -45,6 +49,9 @@ export default class ChapterList extends React.Component {
           <ScrollView>
             <Text style={styles.summary}>{manga.summary}</Text>
           </ScrollView>
+          {!isFavorite
+            ? <Button onPress={addFavorite} title='Add to Favorites' />
+            : <Button onPress={removeFavorite} title='Remove from Favorites' />}
         </View>
       </View>
       <FlatList
