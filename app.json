@@ -1,13 +1,14 @@
 {
   "expo": {
     "name": "react-native-manga-reader-app",
-    "description": "This project is really great.",
+    "description": "A React Native / Expo app for cross-platform manga reading",
     "slug": "react-native-manga-reader-app",
     "privacy": "public",
     "sdkVersion": "29.0.0",
+    "version": "0.0.1",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
     "orientation": "portrait",
+    "githubUrl": "https://github.com/agilgur5/react-native-manga-reader-app",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

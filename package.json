@@ -1,7 +1,8 @@
 {
-  "name": "empty-project-template",
+  "name": "react-native-manga-reader-app",
+  "description": "A React Native / Expo app for cross-platform manga reading",
+  "version": "0.0.1",
   "main": "node_modules/expo/AppEntry.js",
-  "private": true,
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -20,5 +21,11 @@
   },
   "devDependencies": {
     "react-devtools": "^3.2.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agilgur5/react-native-manga-reader-app.git"
+  },
+  "author": "Anton Gilgur",
+  "license": "Apache-2.0"
 }
