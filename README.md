@@ -2,6 +2,8 @@
 
 A React Native / Expo app for cross-platform manga reading
 
+[View the Expo app](https://expo.io/@agilgur5/react-native-manga-reader-app)
+
 <br>
 
 ## Why?
