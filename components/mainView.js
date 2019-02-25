@@ -16,22 +16,21 @@ export default class MainView extends React.Component {
   }
 
   render () {
-    const { searchedMangas, selectManga, submitQuery, favoriteMangas,
-      latestMangas, refreshing, refresh, loadMore, selectedManga,
-      selectedChapter } = this.props.appStore
+    const { searched, selectManga, submitQuery, favorites, latest, refreshing,
+      refresh, loadMore, selectedManga, selectedChapter } = this.props.appStore
 
     return <View style={styles.base}>
       <StatusBar hidden />
       <TextInput style={styles.text} placeholder='Search...'
         placeholderTextColor={styles.text.color} onChangeText={submitQuery} />
-      <MangaList mangas={searchedMangas} onSelect={selectManga} />
+      <MangaList mangas={searched} onSelect={selectManga} />
 
       <Text style={styles.text}>Favorites</Text>
-      <MangaList mangas={favoriteMangas} onSelect={selectManga} />
+      <MangaList mangas={favorites} onSelect={selectManga} />
 
       <Text style={styles.text}>Latest</Text>
-      <MangaList mangas={latestMangas} onSelect={selectManga}
-        refreshing={refreshing} onRefresh={refresh} onEndReached={loadMore} />
+      <MangaList mangas={latest} onSelect={selectManga} refreshing={refreshing}
+        onRefresh={refresh} onEndReached={loadMore} />
 
       {selectedManga && <ChapterList />}
 
