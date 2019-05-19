@@ -1,6 +1,7 @@
 import React from 'react'
-import { Dimensions, FlatList, View, Text, Image,
+import { Dimensions, FlatList, View, Text, Image as RNImage,
   TouchableWithoutFeedback } from 'react-native'
+import { Image } from 'react-native-expo-image-cache'
 import { inject, observer } from 'mobx-react'
 
 import { getImage } from '../models/api.js'
@@ -105,7 +106,7 @@ class Page extends React.PureComponent {
     const { page } = this.props
     getImage(page).then((image) => {
       this.setState({ image })
-      Image.getSize(image, (imageWidth, imageHeight) =>
+      RNImage.getSize(image, (imageWidth, imageHeight) =>
         this.setState({ imageWidth, imageHeight })
       )
     })
