@@ -2,6 +2,7 @@ const styles = {
   manga: {
     margin: 3,
     flex: 1,
+    maxWidth: '25%', // 4 mangas per row
     aspectRatio: 0.642857143,
     backgroundColor: '#000000'
   },
