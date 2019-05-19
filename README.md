@@ -27,4 +27,4 @@ Having a custom webpack config integrated with my [front end boilerplate](https:
 Parts of the codebase were originally `cp`'d from [yinshanyang/manga](https://github.com/yinshanyang/manga) as a starting point.
 Since then, much of it has been highly refactored, reorganized, bugfixed, changed, etc.
 The API and scraper code is still mostly the same, as is the styling / layout of main Manga List View and the Chapter List View, for now.
-Will likely continue to change more and more as I get into it and add new sites, `AsyncStorage`, `FileSystem` storage, Search, more loading icons, better image components, etc.
+Have already added several features like Search, Favorites + persisted `AsyncStorage`, and will likely continue to change more and more.
