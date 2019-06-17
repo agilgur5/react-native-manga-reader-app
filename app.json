@@ -4,7 +4,7 @@
     "description": "A React Native / Expo app for cross-platform manga reading",
     "slug": "react-native-manga-reader-app",
     "privacy": "public",
-    "sdkVersion": "29.0.0",
+    "sdkVersion": "33.0.0",
     "version": "0.1.0",
     "platforms": [
       "ios",
