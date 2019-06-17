@@ -12,13 +12,13 @@
   },
   "dependencies": {
     "cheerio-without-node-native": "^0.20.2",
-    "expo": "^29.0.0",
+    "expo": "^33.0.0",
     "mobx": "^5.9.4",
     "mobx-react": "^5.2.5",
     "mobx-state-tree": "^3.14.0",
     "mst-persist": "^0.0.1",
-    "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz"
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz"
   },
   "devDependencies": {
     "react-devtools": "^3.2.3"
