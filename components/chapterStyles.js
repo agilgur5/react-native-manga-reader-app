@@ -67,6 +67,9 @@ const styles = {
     borderBottomWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.3)'
   },
+  chapterUnread: {
+    backgroundColor: '#555'
+  },
   chapterTitle: {
     fontSize: 14,
     lineHeight: 16,

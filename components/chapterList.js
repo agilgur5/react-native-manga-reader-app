@@ -65,12 +65,16 @@ export default class ChapterList extends React.Component {
   }
 }
 
-class Chapter extends React.PureComponent {
+@observer
+class Chapter extends React.Component {
   render () {
     const { chapter } = this.props
+    const chapterStyle = chapter.read
+      ? styles.chapter
+      : { ...styles.chapter, ...styles.chapterUnread }
 
     return <TouchableWithoutFeedback onPress={this.onSelect}>
-      <View style={styles.chapter}>
+      <View style={chapterStyle}>
         <Text style={styles.chapterTitle}>
           CHAPTER {chapter.title}
         </Text>
