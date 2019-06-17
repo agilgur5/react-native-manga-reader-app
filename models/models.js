@@ -96,7 +96,14 @@ const Manga = types.model('Manga', {
 }).actions((self) => ({
   loadChapters: flow(function * loadChapters () {
     const { chapters, tags, summary } = yield getChapters(self.link)
-    self.chapters = chapters
+    if (self.chapters.length === 0) {
+      self.chapters = chapters // just an optimization compared to below
+    } else {
+      // merge chapter data if some already persisted
+      chapters.forEach((chapter, index) => {
+        self.chapters[index] = { ...self.chapters[index], ...chapter }
+      })
+    }
     self.tags = tags
     self.summary = summary
   })
@@ -105,10 +112,12 @@ const Manga = types.model('Manga', {
 const Chapter = types.model('Chapter', {
   link: types.identifier,
   title: types.string,
+  read: false,
   pages: types.array(types.late(() => Page))
 }).actions((self) => ({
   loadPages: flow(function * loadPages () {
     self.pages = yield getPages(self.link)
+    self.read = true
   })
 }))
 
