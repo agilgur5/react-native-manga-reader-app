@@ -97,8 +97,8 @@ export default class PageList extends React.Component {
 class Page extends React.PureComponent {
   state = {
     image: null,
-    imageWidth: 0,
-    imageHeight: 0
+    imageWidth: null,
+    imageHeight: null
   }
 
   componentWillMount () {
@@ -114,6 +114,8 @@ class Page extends React.PureComponent {
   render () {
     const { toggleNav } = this.props
     const { image, imageWidth, imageHeight } = this.state
+    const canRender = image && Number.isInteger(imageWidth) &&
+      Number.isInteger(imageHeight)
 
     const { height, width } = Dimensions.get('window')
     // aspectRatio will be > 1, so set width instead of height
@@ -124,7 +126,7 @@ class Page extends React.PureComponent {
         ...styles.page,
         ...{ height, width }
       }}>
-        {image && <Image
+        {canRender && <Image
           style={{
             ...imageSize,
             aspectRatio: imageWidth / imageHeight

@@ -43,7 +43,7 @@ export default class ChapterList extends React.Component {
           <Text style={styles.title}>
             {manga.title.toUpperCase()}
           </Text>
-          {manga.tags.length && <Text style={styles.tags}>
+          {manga.tags.length > 0 && <Text style={styles.tags}>
             {manga.tags.join(', ').toUpperCase()}
           </Text>}
           <ScrollView>
