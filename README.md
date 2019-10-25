@@ -1,6 +1,11 @@
 # react-native-manga-reader-app
 
-[//]: # (render icon from Expo CDN at its native dimensions)
+<!-- releases / versioning -->
+[![runs-with-expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/@agilgur5/react-native-manga-reader-app)
+[![releases](https://img.shields.io/github/v/release/agilgur5/react-native-manga-reader-app?include_prereleases&sort=semver)](https://github.com/agilgur5/react-native-manga-reader-app/releases)
+[![commits](https://img.shields.io/github/commits-since/agilgur5/react-native-manga-reader-app/latest.svg)](https://github.com/agilgur5/react-native-manga-reader-app/commits/master)
+
+<!-- render icon from Expo CDN at its native dimensions -->
 <p align='center'>
   <img width='192' height='192' src='https://d1wp6m56sqw74a.cloudfront.net/~assets/48e9407ff061a854a5103c70faaf897f' />
 </p>
