@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar, View, Text, TextInput } from 'react-native'
+import { StatusBar, View, Text, TextInput, SectionList } from 'react-native'
 import { inject, observer } from 'mobx-react'
 
 import MangaList from './mangaList.js'
@@ -15,22 +15,54 @@ export default class MainView extends React.Component {
     this.props.appStore.refresh()
   }
 
+  keyExtractor = (_, index) => index
+  renderSectionHeader = ({ section }) => {
+    switch (section.title) {
+      case 'Search...':
+        return <TextInput style={styles.text} placeholder='Search...'
+          placeholderTextColor={styles.text.color} {...section.props} />
+      case 'Favorites':
+        return <Text style={styles.text}>Favorites</Text>
+      case 'Latest':
+        return <Text style={styles.text}>Latest</Text>
+    }
+  }
+  renderList = ({ item }) => {
+    return <MangaList {...item} />
+  }
+
   render () {
     const { searched, selectManga, submitQuery, favorites, latest, refreshing,
       refresh, loadMore, selectedManga, selectedChapter } = this.props.appStore
 
     return <View style={styles.base}>
       <StatusBar hidden />
-      <TextInput style={styles.text} placeholder='Search...'
-        placeholderTextColor={styles.text.color} onChangeText={submitQuery} />
-      <MangaList mangas={searched} onSelect={selectManga} />
-
-      <Text style={styles.text}>Favorites</Text>
-      <MangaList mangas={favorites} onSelect={selectManga} />
-
-      <Text style={styles.text}>Latest</Text>
-      <MangaList mangas={latest} onSelect={selectManga} refreshing={refreshing}
-        onRefresh={refresh} onEndReached={loadMore} />
+      <SectionList
+        sections={[
+          {
+            title: 'Search...',
+            props: { onChangeText: submitQuery },
+            data: [{ mangas: searched, onSelect: selectManga }]
+          },
+          {
+            title: 'Favorites',
+            data: [{ mangas: favorites, onSelect: selectManga }]
+          },
+          {
+            title: 'Latest',
+            data: [{
+              mangas: latest,
+              onSelect: selectManga,
+              refreshing,
+              onRefresh: refresh,
+              onEndReached: loadMore
+            }]
+          }
+        ]}
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderList}
+        renderSectionHeader={this.renderSectionHeader}
+      />
 
       {selectedManga && <ChapterList />}
 

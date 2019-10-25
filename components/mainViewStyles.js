@@ -9,6 +9,7 @@ const styles = {
   text: {
     width: '100%',
     color: '#aaa',
+    backgroundColor: '#1a1a1a', // for iOS sticky section headers
     fontSize: 26,
     paddingTop: 15,
     paddingBottom: 15
