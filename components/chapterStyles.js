@@ -7,6 +7,8 @@ const styles = {
     right: 0,
     backgroundColor: '#333'
   },
+
+  // nav styles
   navBar: {
     width: '100%',
     height: 34
@@ -24,6 +26,8 @@ const styles = {
     fontSize: 30,
     color: 'gray'
   },
+
+  // manga desc styles
   header: {
     flexDirection: 'row',
     maxHeight: 349,
@@ -61,7 +65,10 @@ const styles = {
     fontSize: 16,
     lineHeight: 20
   },
+
+  // chapter list styles
   chapter: {
+    flexDirection: 'row',
     padding: 16,
     backgroundColor: '#333',
     borderBottomWidth: 1,
@@ -75,6 +82,20 @@ const styles = {
     lineHeight: 16,
     fontWeight: '900',
     color: '#fff'
+  },
+  newText: {
+    marginLeft: 6,
+    fontSize: 14,
+    lineHeight: 16,
+    fontWeight: '900',
+    color: '#8ca0d1' // pale blue
+  },
+  date: {
+    marginLeft: 'auto', // right align
+    fontSize: 14,
+    lineHeight: 16,
+    fontWeight: '700', // smaller than rest as not as important
+    color: '#ddd' // v. light gray
   }
 }
 
