@@ -1,6 +1,7 @@
 import { types, flow } from 'mobx-state-tree'
 
 import { getLatest, getSearch, getChapters, getPages } from './api.js'
+import { nextDay } from '../utils/dateHelpers.js'
 
 const AppModel = types.model('App', {
   isHorizontal: true,
@@ -112,9 +113,15 @@ const Manga = types.model('Manga', {
 const Chapter = types.model('Chapter', {
   link: types.identifier,
   title: types.string,
+  date: types.maybeNull(types.Date), // can be non-existent or invalid
   read: false,
   pages: types.array(types.late(() => Page))
-}).actions((self) => ({
+}).views((self) => ({
+  isNew () {
+    // less than a week old
+    return self.date && self.date > nextDay(new Date(), -7)
+  }
+})).actions((self) => ({
   loadPages: flow(function * loadPages () {
     self.pages = yield getPages(self.link)
     self.read = true

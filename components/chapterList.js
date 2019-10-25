@@ -78,6 +78,10 @@ class Chapter extends React.Component {
         <Text style={styles.chapterTitle}>
           CHAPTER {chapter.title}
         </Text>
+        {chapter.isNew() && <Text style={styles.newText}>New!</Text>}
+        <Text style={styles.date}>
+          {chapter.date && chapter.date.toLocaleDateString()}
+        </Text>
       </View>
     </TouchableWithoutFeedback>
   }
