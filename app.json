@@ -5,7 +5,7 @@
     "slug": "react-native-manga-reader-app",
     "privacy": "public",
     "sdkVersion": "33.0.0",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "platforms": [
       "ios",
       "android"
