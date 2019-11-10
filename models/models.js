@@ -91,30 +91,20 @@ const Manga = types.model('Manga', {
   cover: types.string,
   title: types.string,
   release: types.maybe(types.string),
-  chapters: types.array(types.late(() => Chapter)),
+  chapsByRef: types.map(types.late(() => Chapter)),
+  chapters: types.array(types.reference(types.late(() => Chapter))),
   tags: types.array(types.string),
   summary: ''
 }).actions((self) => ({
   loadChapters: flow(function * loadChapters () {
     const { chapters, tags, summary } = yield getChapters(self.link)
 
-    // merge chapter data if some already persisted
-    let offset = 0
-    for (let index = 0; index < self.chapters.length; index++) {
-      const oldChap = self.chapters[index]
-      // new set of chapters might be a little ahead, get the offset
-      for ( ; index + offset < chapters.length; offset++) {
-        // found the offset, break out
-        if (oldChap.link === chapters[index + offset].link) break
-      }
-      // if no matches, break out
-      if (index + offset >= chapters.length) break
+    chapters.forEach((chapter) => {
+      const oldChap = self.chapsByRef.get(chapter.link)
+      self.chapsByRef.put({...oldChap, ...chapter})
+    })
 
-      // merge into the new list with new overriding old
-      chapters[index + offset] = {...oldChap, ...chapters[index + offset]}
-    }
-
-    self.chapters = chapters // set to the new, merged list
+    self.chapters = chapters.map(({link}) => link)
     self.tags = tags
     self.summary = summary
   })
