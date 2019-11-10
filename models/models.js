@@ -97,14 +97,24 @@ const Manga = types.model('Manga', {
 }).actions((self) => ({
   loadChapters: flow(function * loadChapters () {
     const { chapters, tags, summary } = yield getChapters(self.link)
-    if (self.chapters.length === 0) {
-      self.chapters = chapters // just an optimization compared to below
-    } else {
-      // merge chapter data if some already persisted
-      chapters.forEach((chapter, index) => {
-        self.chapters[index] = { ...self.chapters[index], ...chapter }
-      })
+
+    // merge chapter data if some already persisted
+    let offset = 0
+    for (let index = 0; index < self.chapters.length; index++) {
+      const oldChap = self.chapters[index]
+      // new set of chapters might be a little ahead, get the offset
+      for ( ; index + offset < chapters.length; offset++) {
+        // found the offset, break out
+        if (oldChap.link === chapters[index + offset].link) break
+      }
+      // if no matches, break out
+      if (index + offset >= chapters.length) break
+
+      // merge into the new list with new overriding old
+      chapters[index + offset] = {...oldChap, ...chapters[index + offset]}
     }
+
+    self.chapters = chapters // set to the new, merged list
     self.tags = tags
     self.summary = summary
   })
