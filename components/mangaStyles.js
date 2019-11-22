@@ -34,7 +34,7 @@ const styles = {
     paddingLeft: 4,
     paddingRight: 4,
     color: '#fff',
-    fontSize: 10,
+    fontSize: 12,
     lineHeight: 16,
     fontWeight: '500'
   }
