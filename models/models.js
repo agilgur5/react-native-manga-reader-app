@@ -18,14 +18,21 @@ const AppModel = types.model('App', {
     return self.favorites.includes(self.selectedManga)
   }
 })).actions((self) => {
+  // private helper functions
+  function mergeManga (manga) {
+    const oldManga = self.mangas.get(manga.link)
+    self.mangas.put({...oldManga, ...manga})
+  }
+
   function addMangas (mangas) {
-    mangas.forEach(manga => self.mangas.put(manga))
+    mangas.forEach(mergeManga)
   }
 
   function mangasToRefs (mangas) {
     return mangas.map(({link}) => link)
   }
 
+  // public actions
   return {toggleHorizontal () {
     self.isHorizontal = !self.isHorizontal
   },
