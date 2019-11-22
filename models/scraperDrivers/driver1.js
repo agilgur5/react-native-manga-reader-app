@@ -25,10 +25,17 @@ export function getChapters ($) {
   const title = $('.manga-detail-top .title').text().trim()
   const chapters = $('.chlist a')
     .map((index, el) => {
+      const dateText = $(el).find(':not(.newch)').text()
+      // if "hours ago". "days ago", "Today", etc, just use now
+      const isRelative = dateText.includes('ago') ||
+        dateText.includes('Today') ||
+        dateText.includes('Yesterday')
+      const date = new Date(isRelative ? Date.now() : dateText)
+
       return {
         link: $(el).attr('href').replace('//', 'http://'),
         title: $(el).text().match(/[0-9]+/)[0] || '0',
-        date: new Date($(el).find(':not(.newch)').text())
+        date
       }
     })
     .get()
