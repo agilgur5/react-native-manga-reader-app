@@ -15,6 +15,9 @@ persist('@mangaStoreKey', appStore, {
     'mangas',
     'favorites'
   ]
+}).then(() => {
+  // fetch chapters on app load so that numNewUnread is updated
+  appStore.loadFavoritesChapters()
 })
 
 const App = () => (

@@ -90,6 +90,10 @@ const AppModel = types.model('App', {
     self.favorites.splice(self.favorites.findIndex((elem) => {
       return elem === self.selectedManga
     }), 1)
+  },
+
+  loadFavoritesChapters () {
+    self.favorites.forEach((favorite) => favorite.loadChapters())
   }}
 })
 
