@@ -31,9 +31,16 @@ export default class MangaList extends React.Component {
   }
 }
 
-class Manga extends React.PureComponent {
+@observer
+class Manga extends React.Component {
   render () {
     const { manga } = this.props
+    // show either the number of new unread chapters if available or
+    // "Today" / "Yesterday" if available
+    const newText = manga.numNewUnreadChapters()
+      ? manga.numNewUnreadChapters() + ' new unread chapters'
+      : manga.release && manga.release.toUpperCase()
+    const isNew = manga.numNewUnreadChapters() || manga.release === 'Today'
 
     return <TouchableWithoutFeedback onPress={this.onSelect}>
       <View style={styles.manga}>
@@ -45,10 +52,10 @@ class Manga extends React.PureComponent {
         <Text
           style={{
             ...styles.release,
-            color: manga.release === 'Today' ? '#fff' : '#aaa'
+            color: isNew ? '#fff' : '#aaa'
           }}
         >
-          {manga.release && manga.release.toUpperCase()}
+          {newText}
         </Text>
       </View>
     </TouchableWithoutFeedback>

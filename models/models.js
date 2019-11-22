@@ -101,7 +101,15 @@ const Manga = types.model('Manga', {
   chapters: types.array(types.late(() => Chapter)),
   tags: types.array(types.string),
   summary: ''
-}).actions((self) => ({
+}).views((self) => ({
+  numNewUnreadChapters () {
+    let sum = 0
+    self.chapters.forEach((chapter) => {
+      if (chapter.isNew() && !chapter.read) sum++
+    })
+    return sum
+  }
+})).actions((self) => ({
   loadChapters: flow(function * loadChapters () {
     const { chapters, tags, summary } = yield getChapters(self.link)
 
