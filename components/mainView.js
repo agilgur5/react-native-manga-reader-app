@@ -20,7 +20,8 @@ export default class MainView extends React.Component {
     switch (section.title) {
       case 'Search...':
         return <TextInput style={styles.text} placeholder='Search...'
-          placeholderTextColor={styles.text.color} {...section.props} />
+          placeholderTextColor={styles.text.color} autoCorrect={false}
+          {...section.props} />
       case 'Favorites':
         return <Text style={styles.text}>Favorites</Text>
       case 'Latest':
