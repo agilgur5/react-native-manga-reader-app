@@ -1,6 +1,7 @@
 import React from 'react'
 import { StatusBar, View, Text, TextInput, SectionList } from 'react-native'
 import { inject, observer } from 'mobx-react'
+import debounce from 'lodash.debounce'
 
 import MangaList from './mangaList.js'
 import PageList from './pageList.js'
@@ -42,7 +43,7 @@ export default class MainView extends React.Component {
         sections={[
           {
             title: 'Search...',
-            props: { onChangeText: submitQuery },
+            props: { onChangeText: debounce(submitQuery, 200) },
             data: [{ mangas: searched, onSelect: selectManga }]
           },
           {
